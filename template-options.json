@@ -1,0 +1,316 @@
+{
+  "Constants": {
+    "ORIG_TEMPLATE_NAME": "TAGO.Template"
+  },
+  "FolderPath": "%userprofile%\\source\\repos\\{GIT_PROJECT_NAME}",
+  "ProjectNameFormat": "{PROJECT_NAME}",
+  "RepoNameFormat": "{PROJECT_NAME}",
+  "Replaces": [
+    {
+      "From": "{ORIG_TEMPLATE_NAME}",
+      "To": "{SLN_PROJECT_NAME}"
+    },
+    {
+      "FilePath": "/src/{ORIG_TEMPLATE_NAME}.Api/key.api_dev.pub",
+      "From": "\r\n",
+      "To": "\n"
+    }
+  ],
+  "Options": [
+    {
+      "Name": "Mongo",
+      "DisplayName": "Add Mongo data access example? Y/N",
+      "Actions": {
+        "No": {
+          "Remove": {
+            "Directories": [
+              "src/{ORIG_TEMPLATE_NAME}.Mongo.DataAccess"
+            ],
+            "Files": [
+            ],
+            "Lines": [
+              {
+                "FilePath": "/src/{ORIG_TEMPLATE_NAME}.Api/{ORIG_TEMPLATE_NAME}.Api.csproj",
+                "Contains": "Mongo.DataAccess.csproj"
+              },
+              {
+                "FilePath": "/src/{ORIG_TEMPLATE_NAME}.Api/program.cs",
+                "Contains": "AddMongoDataAccess"
+              },
+              {
+                "FilePath": "/Dockerfile",
+                "Contains": ".Mongo.DataAccess"
+              },
+              {
+                "FilePath": "/src/{ORIG_TEMPLATE_NAME}.sln",
+                "Pattern": "(?s)^Project.*?Mongo.DataAccess.*?^EndProject"
+              }
+            ],
+            "JsonNodes": [
+              {
+                "FilePath": "/src/{ORIG_TEMPLATE_NAME}.Api/appsettings.json",
+                "NodePath": "Mongo"
+              },
+              {
+                "FilePath": "/src/{ORIG_TEMPLATE_NAME}.Api/appsettings.Development.json",
+                "NodePath": "Mongo"
+              }
+            ]
+          }
+        },
+        "Yes": {
+        }
+      }
+    },   
+    {
+      "Name": "RestApi",
+      "DisplayName": "Add Rest-Api example? Y/N",
+      "Actions": {
+        "No": {
+          "Remove": {
+            "Directories": [
+              "src/{ORIG_TEMPLATE_NAME}.RestApi"
+            ],
+            "Files": [
+              "/src/{ORIG_TEMPLATE_NAME}.Api/Controllers/AccountsRepoDemoController.cs"
+            ],
+            "Lines": [
+              {
+                "FilePath": "/src/{ORIG_TEMPLATE_NAME}.Api/{ORIG_TEMPLATE_NAME}.Api.csproj",
+                "Contains": "RestApi.csproj"
+              },
+              {
+                "FilePath": "/src/{ORIG_TEMPLATE_NAME}.Api/program.cs",
+                "Contains": "AddRestApi"
+              },
+              {
+                "FilePath": "/Dockerfile",
+                "Contains": ".RestApi"
+              },
+              {
+                "FilePath": "/src/{ORIG_TEMPLATE_NAME}.sln",
+                "Pattern": "(?s)^Project.*?RestApi.*?^EndProject"
+              }
+            ],
+            "JsonNodes": [
+              {
+                "FilePath": "/src/{ORIG_TEMPLATE_NAME}.Api/appsettings.json",
+                "NodePath": "APIGateway"
+              },
+              {
+                "FilePath": "/src/{ORIG_TEMPLATE_NAME}.Api/appsettings.Development.json",
+                "NodePath": "APIGateway"
+              },
+              {
+                "FilePath": "/src/{ORIG_TEMPLATE_NAME}.Api/appsettings.json",
+                "NodePath": "RestApiAccountDataAccess"
+              },
+              {
+                "FilePath": "/src/{ORIG_TEMPLATE_NAME}.Api/appsettings.Development.json",
+                "NodePath": "RestApiAccountDataAccess"
+              }
+            ]
+          }
+        },
+        "Yes": {
+        }
+      }
+    },
+    {
+      "Name": "MsSql",
+      "DisplayName": "Add Ms-Sql data access example? Y/N",
+      "Actions": {
+        "No": {
+          "Remove": {
+            "Directories": [
+              "src/{ORIG_TEMPLATE_NAME}.Sql.DataAccess"
+            ],
+            "Files": [
+            ],
+            "Lines": [
+              {
+                "FilePath": "/src/{ORIG_TEMPLATE_NAME}.Api/{ORIG_TEMPLATE_NAME}.Api.csproj",
+                "Contains": "Sql.DataAccess.csproj"
+              },
+              {
+                "FilePath": "/src/{ORIG_TEMPLATE_NAME}.Api/program.cs",
+                "Contains": "AddMsSqlDataAccess"
+              },
+              {
+                "FilePath": "/Dockerfile",
+                "Contains": ".Sql.DataAccess"
+              },
+              {
+                "FilePath": "/src/{ORIG_TEMPLATE_NAME}.sln",
+                "Pattern": "(?s)^Project.*?Sql.DataAccess.*?^EndProject"
+              }
+            ],
+            "JsonNodes": [
+              {
+                "FilePath": "/src/{ORIG_TEMPLATE_NAME}.Api/appsettings.json",
+                "NodePath": "Sql"
+              },
+              {
+                "FilePath": "/src/{ORIG_TEMPLATE_NAME}.Api/appsettings.Development.json",
+                "NodePath": "Sql"
+              }
+            ]
+          }
+        },
+        "Yes": {
+        }
+      }
+    },  
+    {
+      "Background": true,
+      "Name": "SetBFB",
+      "Actions": {
+        "Yes": {
+          "Remove": {
+            "Directories": [
+              
+            ],
+            "Files": [
+              "/src/{ORIG_TEMPLATE_NAME}.Api/Controllers/AccountController.cs"
+            ],
+            "Lines": [              
+              {
+                "FilePath": "/src/{ORIG_TEMPLATE_NAME}.Api/program.cs",
+                "Contains": "UseBaseApp_BFF"
+              },
+              {
+                "FilePath": "/src/{ORIG_TEMPLATE_NAME}.Api/program.cs",
+                "Contains": "WithJwtAuthorization(false)"
+              }              
+            ],
+            "JsonNodes": [
+              {
+                "FilePath": "/src/{ORIG_TEMPLATE_NAME}.Api/appsettings.Development.json",
+                "NodePath": "RestClient"
+              },
+              {
+                "FilePaths": [
+                  "/src/{ORIG_TEMPLATE_NAME}.Api/appsettings.json",
+                  "/src/{ORIG_TEMPLATE_NAME}.Api/appsettings.Development.json"
+                ],
+                "NodePaths": [
+                  "APIGateway:WindowsAuthentication",
+                  "APIGateway:JwtSigner"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },   
+    {
+      "Background": true,
+      "Name": "dataAccessCleanUp",
+      "Condition": {
+        "AnySelected": [
+          "Db2",
+          "Mongo",
+          "Oracle",
+          "RestApi",
+          "MsSql"
+        ]
+      },
+      "Actions": {
+        "Yes": {
+        },
+        "No": {
+          "Remove": {
+            "Directories": [
+              "/src/{ORIG_TEMPLATE_NAME}.Abstractions",
+              "/src/{ORIG_TEMPLATE_NAME}.Business"
+            ],
+            "Files": [
+              "/src/{ORIG_TEMPLATE_NAME}.Api/Controllers/AccountsController.cs",
+              "/src/{ORIG_TEMPLATE_NAME}.Api/Extensions/BusinessExeptionConverterMiddleware.cs"
+            ],
+            "Lines": [
+              {
+                "FilePath": "/src/{ORIG_TEMPLATE_NAME}.Api/{ORIG_TEMPLATE_NAME}.Api.csproj",
+                "Contains": ".Abstractions.csproj"
+              },
+              {
+                "FilePath": "/src/{ORIG_TEMPLATE_NAME}.Api/{ORIG_TEMPLATE_NAME}.Api.csproj",
+                "Contains": ".Business.csproj"
+              },
+              {
+                "FilePath": "/src/{ORIG_TEMPLATE_NAME}.sln",
+                "Pattern": "(?s)^Project.*?data-access.*?^EndProject"
+              },
+              {
+                "FilePath": "/src/{ORIG_TEMPLATE_NAME}.sln",
+                "Pattern": "(?s)^Project.*?Business.*?^EndProject"
+              },
+              {
+                "FilePath": "/src/{ORIG_TEMPLATE_NAME}.sln",
+                "Pattern": "(?s)^Project.*?business.*?^EndProject"
+              },
+              {
+                "FilePath": "/src/{ORIG_TEMPLATE_NAME}.sln",
+                "Pattern": "(?s)^Project.*?Abstractions.*?^EndProject"
+              },
+              {
+                "FilePath": "/src/{ORIG_TEMPLATE_NAME}.Api/program.cs",
+                "Contains": "AddBusinessDi"
+              },
+              {
+                "FilePath": "/src/{ORIG_TEMPLATE_NAME}.Api/program.cs",
+                "Contains": "BusinessExeptionConverterMiddleware"
+              },
+              {
+                "FilePath": "/src/{ORIG_TEMPLATE_NAME}.Api/program.cs",
+                "Contains": "Api.Extensions"
+              },
+              {
+                "FilePath": "/Dockerfile",
+                "Contains": ".Abstractions"
+              },
+              {
+                "FilePath": "/Dockerfile",
+                "Contains": ".Business"
+              }
+
+            ]
+          }
+        }
+      }
+    },
+    {
+      "Background": true,
+      "Name": "dataAccessFolderCleanUp",
+      "Condition": {
+        "AnySelected": [          
+          "Mongo",
+          "RestApi",
+          "MsSql"
+        ]
+      },
+      "Actions": {
+        "Yes": {
+        },
+        "No": {
+          "Remove": {            
+            "Lines": [
+              {
+                "FilePath": "/src/{ORIG_TEMPLATE_NAME}.sln",
+                "Pattern": "(?s)^Project.*?data-access.*?^EndProject"
+              }
+
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "PostAction": {
+    "RunFile": [
+      {
+        "pattern": "*.sln"
+      }
+    ]
+  }
+}

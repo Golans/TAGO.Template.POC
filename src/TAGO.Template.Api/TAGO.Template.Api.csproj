@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+		<DockerfileContext>.</DockerfileContext>
+		<Configurations>Debug;Release;Prod</Configurations>
+		<UserSecretsId>94473c89-bbc6-4258-b6ee-dc106ce6b413</UserSecretsId>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+	</PropertyGroup>
+	<ItemGroup>
+		<Content Remove="template-options.json" />
+	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="Asp.Versioning.Mvc" Version="8.1.0" />
+	  <PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.1" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.2" />
+	  <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.2" />
+	  <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.2" />
+	  <PackageReference Include="Microsoft.Extensions.Options" Version="9.0.2" />
+	  <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="23.7.0" />
+	</ItemGroup>
+
+	<ItemGroup>	  
+	  <ProjectReference Include="..\TAGO.Template.Abstractions\TAGO.Template.Abstractions.csproj" />	  
+	  <ProjectReference Include="..\TAGO.Template.business\TAGO.Template.Business.csproj" />
+	  <ProjectReference Include="..\TAGO.Template.Mongo.DataAccess\TAGO.Template.Mongo.DataAccess.csproj" />
+	  <ProjectReference Include="..\TAGO.Template.RestApi\TAGO.Template.RestApi.csproj" />
+	  <ProjectReference Include="..\TAGO.Template.Sql.DataAccess\TAGO.Template.Sql.DataAccess.csproj" />
+	  <ProjectReference Include="..\_External\Tago.Extensions.AspNetCore\Tago.Extensions.AspNetCore.csproj" />
+	</ItemGroup>
+
+</Project>
