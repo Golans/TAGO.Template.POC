@@ -1,4 +1,8 @@
 {
+  //"Branch": "feature/net8-simple",
+	"Version": 1.1,
+	"Tags": [],
+	"DisplayName": "GutHub - Multi-Option Web Api Template (.net8) - sample",
   "Constants": {
     "ORIG_TEMPLATE_NAME": "TAGO.Template"
   },
