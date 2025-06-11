@@ -7,16 +7,7 @@ namespace TAGO.Template.Api.model
     {
 
         [Required]
-        [FromRoute(Name = "bankId")]
-        public int BankId { get; set; }
-
-        [Required]
-        [FromRoute(Name = "branchId")]
-        public int BranchId { get; set; }
-
-
-        [Required]
         [FromRoute(Name = "accountId")]
-        public int AccountId { get; set; }
+        public string AccountId { get; set; }
     }
 }

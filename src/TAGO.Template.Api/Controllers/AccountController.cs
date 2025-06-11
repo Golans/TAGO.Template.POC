@@ -37,7 +37,7 @@ namespace TAGO.Template.RestApi.Controllers
 
             try
             {
-                var result = await _dataAccess.GetAccountsAsync();
+                var result = await _dataAccess.GetAsync();
                 if (result != null)
                 {
                     accounts.AddRange(result);

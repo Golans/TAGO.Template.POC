@@ -34,7 +34,7 @@ namespace TAGO.Template.RestApi.DataAccess
         }
 
         //TODO : Add real entities
-        public async Task<Account> CreateAccountAsync(Account account, CancellationToken cancellationToken = default)
+        public async Task<Account> CreateAsync(Account account, CancellationToken cancellationToken = default)
         {
             var path = CombinePaths(_serverBaseUrl, _apiResourcePath);
             var res = await _restClient.PostAsync<CreateAccountResponseModel>(path, account, cancellationToken: cancellationToken);
@@ -43,7 +43,7 @@ namespace TAGO.Template.RestApi.DataAccess
         }
 
 
-        public async Task<IEnumerable<Account>> GetAllAccountsAsync(CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<Account>> GetAllAsync(CancellationToken cancellationToken = default)
         {
             try
             {
@@ -75,11 +75,11 @@ namespace TAGO.Template.RestApi.DataAccess
 
         }
 
-        public async Task<Account?> GetAccountAsync(int branchId, int accountId, CancellationToken cancellationToken = default)
+        public async Task<Account?> GetAsync(string accountId, CancellationToken cancellationToken = default)
         {
             try
             {
-                var path = CombinePaths(_serverBaseUrl, _apiResourcePath, BANK_NUMBER, branchId.ToString(), accountId.ToString());
+                var path = CombinePaths(_serverBaseUrl, _apiResourcePath, BANK_NUMBER, accountId.ToString());
 
                 var res = await _restClient.GetAsync<Account>(path, cancellationToken: cancellationToken);
                 if (res != null)
@@ -101,23 +101,12 @@ namespace TAGO.Template.RestApi.DataAccess
 
         }
 
-        public Task UpdateAccountAsync(Account account, CancellationToken cancellationToken = default)
+        public Task UpdateAsync(Account account, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
-        public Task DeleteAccountAsync(AccountIdentifier? requestedAccountId, CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        public async Task<bool> ServiceIsReady(CancellationToken cancellationToken = default)
-        {
-            return true;
-        }
-
-        public Task<IEnumerable<Bank>> GetAccountsGroupedByBranchLinqAsync(CancellationToken cancellationToken = default)
+        public Task DeleteAsync(string accountId, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }

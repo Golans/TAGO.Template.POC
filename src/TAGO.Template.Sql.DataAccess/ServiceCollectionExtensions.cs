@@ -5,7 +5,7 @@ using TAGO.Template.MsSql.DataAccess.DbModel;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
-    public static class ServiceControllerExtensions
+    public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddMsSqlDataAccess(this IServiceCollection services, IConfiguration configuration)
         {

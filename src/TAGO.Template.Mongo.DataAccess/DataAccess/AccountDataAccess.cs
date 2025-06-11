@@ -25,7 +25,7 @@ namespace TAGO.Template.MsSql.DataAccess
         }
 
         //TODO : Add real entities
-        public async Task<Account> CreateAccountAsync(Account account, CancellationToken cancellationToken = default)
+        public async Task<Account> CreateAsync(Account account, CancellationToken cancellationToken = default)
         {
             var con = CreateClient<Account>();
 
@@ -42,7 +42,7 @@ namespace TAGO.Template.MsSql.DataAccess
             return null;
         }
 
-        public async Task<IEnumerable<Account>> GetAllAccountsAsync(CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<Account>> GetAllAsync(CancellationToken cancellationToken = default)
         {
             var con = CreateClient<Account>();
             try
@@ -58,29 +58,19 @@ namespace TAGO.Template.MsSql.DataAccess
             }
         }
 
-        private Account GetAccountModel(DataRow row)
-        {
-            Account account = new Account();
 
-            account.Id = (Guid)row["Guid"];
-            account.AccountId = (int)row["Id"];
-            return account;
-        }
-
-
-
-        public async Task<Account?> GetAccountAsync(int branchId, int accountId, CancellationToken cancellationToken = default)
+        public async Task<Account?> GetAsync(string accountId, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
 
         }
 
-        public Task UpdateAccountAsync(Account account, CancellationToken cancellationToken = default)
+        public Task UpdateAsync(Account account, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
-        public Task DeleteAccountAsync(AccountIdentifier? requestedAccountId, CancellationToken cancellationToken = default)
+        public Task DeleteAsync(string accountId, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
@@ -91,12 +81,6 @@ namespace TAGO.Template.MsSql.DataAccess
             var client = CreateClient<Account>();
             return true;
         }
-
-        public Task<IEnumerable<Bank>> GetAccountsGroupedByBranchLinqAsync(CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
-        }
-
 
 
         private IMongoCollection<T> CreateClient<T>(bool open = true)

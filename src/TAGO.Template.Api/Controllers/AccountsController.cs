@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 using Tago.Extensions.AspNetCore;
 using TAGO.Template.Abstractions;
 using TAGO.Template.Abstractions.Interfaces;
-using TAGO.Template.Api.Extensions;
 using TAGO.Template.Api.model;
 
 namespace TAGO.Template.Controllers
@@ -46,7 +45,7 @@ namespace TAGO.Template.Controllers
             List<Account> accounts = new List<Account>();
             try
             {
-                var result = await _accountManager.GetAccountsAsync(cancellationToken);
+                var result = await _accountManager.GetAsync(cancellationToken);
                 if (result != null)
                 {
                     accounts.AddRange(result);
@@ -91,10 +90,10 @@ namespace TAGO.Template.Controllers
 
             try
             {
-                account = await _accountManager.GetAccountAsync(request.BranchId, request.AccountId, cancellationToken);
+                account = await _accountManager.GetAsync(request.AccountId, cancellationToken);
                 if (null == account)
                 {
-                    _logger.LogDebug($"Account Bank={request.BankId} Branch={request.BranchId} AccountId={request.AccountId} doesn't exists");
+                    _logger.LogDebug($"Account='{request.AccountId}' doesn't exists");
                     return NotFound();
                 }
                 else
@@ -128,16 +127,16 @@ namespace TAGO.Template.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(BaseHttpException), StatusCodes.Status500InternalServerError)]
         //TODO : Rename
-        public async Task<IActionResult> UpdateAccount([FromRoute] string id, [Required][FromBody] Account account, CancellationToken cancellationToken)
+        public async Task<IActionResult> UpdateAccount([Required][FromRoute] string id, [Required][FromBody] Account account, CancellationToken cancellationToken)
         {
-            var requestedAccountId = await HttpContext.GetAccountIdentifierFromJWT();
-            if (requestedAccountId.BranchId != account.BranchId || requestedAccountId.AccountId != account.AccountId)
+            var requestedAccountId = id;
+            if (string.IsNullOrWhiteSpace(id))
             {
                 return BadRequest(new BaseHttpException { Type = "Application error", Title = "Data missmatch.", Status = 400 });
             }
             try
             {
-                await _accountManager.UpdateAccountAsync(account, cancellationToken);
+                await _accountManager.UpdateAsync(account, cancellationToken);
                 return NoContent();
             }
             catch (Exception ex)
@@ -165,7 +164,7 @@ namespace TAGO.Template.Controllers
         {
             try
             {
-                var createdAccount = await _accountManager.CreateAccountAsync(account, cancellationToken);
+                var createdAccount = await _accountManager.CreateAsync(account, cancellationToken);
                 return CreatedAtAction("Account", new { id = account.Id }, createdAccount);
             }
             catch (Exception ex)
@@ -189,10 +188,10 @@ namespace TAGO.Template.Controllers
         [ProducesResponseType(typeof(BaseHttpException), StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DeleteAccount([FromRoute] string id, CancellationToken cancellationToken)
         {
-            var requestedAccountId = await HttpContext.GetAccountIdentifierFromJWT();
+            var requestedAccountId = id;
             try
             {
-                await _accountManager.DeleteAccountAsync(requestedAccountId, cancellationToken);
+                await _accountManager.DeleteAsync(requestedAccountId, cancellationToken);
                 return NoContent();
             }
             catch (Exception ex)

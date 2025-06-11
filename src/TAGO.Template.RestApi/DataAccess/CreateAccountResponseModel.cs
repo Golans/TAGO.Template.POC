@@ -2,7 +2,7 @@
 {
     internal class CreateAccountResponseModel
     {
-        internal Guid CreatedAccountId;
+        internal string CreatedAccountId;
     }
 
 }

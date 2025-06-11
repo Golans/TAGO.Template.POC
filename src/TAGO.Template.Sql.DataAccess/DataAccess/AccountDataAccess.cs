@@ -24,7 +24,7 @@ namespace TAGO.Template.MsSql.DataAccess
         }
 
         //TODO : Add real entities
-        public async Task<Account> CreateAccountAsync(Account account, CancellationToken cancellationToken = default)
+        public async Task<Account> CreateAsync(Account account, CancellationToken cancellationToken = default)
         {
             using (var con = await CreateConnection())
             {
@@ -56,7 +56,7 @@ namespace TAGO.Template.MsSql.DataAccess
             return null;
         }
 
-        public async Task<IEnumerable<Account>> GetAllAccountsAsync(CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<Account>> GetAllAsync(CancellationToken cancellationToken = default)
         {
 
             using (var con = await CreateConnection())
@@ -101,33 +101,18 @@ namespace TAGO.Template.MsSql.DataAccess
             }
         }
 
-        public async Task<Account?> GetAccountAsync(int branchId, int accountId, CancellationToken cancellationToken = default)
+        public async Task<Account?> GetAsync(string accountId, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
 
         }
 
-        public Task UpdateAccountAsync(Account account, CancellationToken cancellationToken = default)
+        public Task UpdateAsync(Account account, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
 
-        public Task DeleteAccountAsync(AccountIdentifier? requestedAccountId, CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        public async Task<bool> ServiceIsReady(CancellationToken cancellationToken = default)
-        {
-            using (var conn = await CreateConnection())
-            {
-                await conn.CloseAsync();
-            }
-            return true;
-        }
-
-        public Task<IEnumerable<Bank>> GetAccountsGroupedByBranchLinqAsync(CancellationToken cancellationToken = default)
+        public Task DeleteAsync(string accountId, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
@@ -158,7 +143,7 @@ namespace TAGO.Template.MsSql.DataAccess
         {
             Account account = new Account();
 
-            account.Id = (Guid)row["Guid"];
+            account.Id = row["Guid"].ToString();
             account.AccountId = (int)row["Id"];
             return account;
         }

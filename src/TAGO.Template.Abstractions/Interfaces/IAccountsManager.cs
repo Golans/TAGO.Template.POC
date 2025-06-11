@@ -2,10 +2,10 @@
 {
     public interface IAccountsManager
     {
-        Task<IEnumerable<Account>> GetAccountsAsync(CancellationToken cancellationToken = default);
-        Task<Account> GetAccountAsync(int branchId, int accountId, CancellationToken cancellationToken = default);
-        Task<Account> CreateAccountAsync(Account account, CancellationToken cancellationToken = default);
-        Task<bool> UpdateAccountAsync(Account account, CancellationToken cancellationToken = default);
-        Task<bool> DeleteAccountAsync(AccountIdentifier? requestedAccountId, CancellationToken cancellationToken = default);
+        Task<IEnumerable<Account>> GetAsync(CancellationToken cancellationToken = default);
+        Task<Account> GetAsync(string accountId, CancellationToken cancellationToken = default);
+        Task<Account> CreateAsync(Account account, CancellationToken cancellationToken = default);
+        Task<bool> UpdateAsync(Account account, CancellationToken cancellationToken = default);
+        Task<bool> DeleteAsync(string accountId, CancellationToken cancellationToken = default);
     }
 }

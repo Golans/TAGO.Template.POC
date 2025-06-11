@@ -56,7 +56,7 @@ namespace TAGO.Template.Controllers
         {
             try
             {
-                var acc = _accountsRepo.Accounts.FirstOrDefault(o => o.BankId == request.BankId && o.BranchId == request.BranchId && o.AccountId == request.AccountId);
+                var acc = _accountsRepo.Accounts.FirstOrDefault(o => o.Id == request.AccountId);
                 if (acc != null)
                 {
                     return Ok(acc);
@@ -96,12 +96,11 @@ namespace TAGO.Template.Controllers
             {
                 accounts.Add(new Account
                 {
-                    Id = Guid.NewGuid(),
+                    Id = Guid.NewGuid().ToString(),
                     AccountId = (i + 1),
                     BankId = 31,
                     BranchId = rnd.Next(1, 99),
-                    DateCreated = DateTime.Now,
-                    TotalAmount = (i + 2) * 1000
+                    DateCreated = DateTime.Now
                 });
             }
         }

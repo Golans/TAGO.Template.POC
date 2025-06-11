@@ -18,7 +18,7 @@ namespace TAGO.Template.Business
             this.accountDataAccess = accountDataAccess;
         }
 
-        public async Task<Account> CreateAccountAsync(Account account, CancellationToken cancellationToken = default)
+        public async Task<Account> CreateAsync(Account account, CancellationToken cancellationToken = default)
         {
 
             //do some validation 
@@ -28,11 +28,11 @@ namespace TAGO.Template.Business
             }
 
 
-            var existing = await accountDataAccess.GetAccountAsync(account.BranchId, account.AccountId);
+            var existing = await accountDataAccess.GetAsync(account.Id);
 
             if (existing == null)
             {
-                var result = await accountDataAccess.CreateAccountAsync(account, cancellationToken);
+                var result = await accountDataAccess.CreateAsync(account, cancellationToken);
                 //do some other staff
 
                 return result;
@@ -43,18 +43,18 @@ namespace TAGO.Template.Business
             }
         }
 
-        public async Task<bool> DeleteAccountAsync(AccountIdentifier? requestedAccountId, CancellationToken cancellationToken = default)
+        public async Task<bool> DeleteAsync(string accountId, CancellationToken cancellationToken = default)
         {
             //do some validation 
-            if (requestedAccountId == null)
+            if (accountId == null)
             {
                 throw new ValidationException("account id could not be null");
             }
 
-            var account = await accountDataAccess.GetAccountAsync(requestedAccountId.BranchId, requestedAccountId.AccountId);
+            var account = await accountDataAccess.GetAsync(accountId);
             if (account != null)
             {
-                await accountDataAccess.DeleteAccountAsync(requestedAccountId, cancellationToken);
+                await accountDataAccess.DeleteAsync(accountId, cancellationToken);
 
                 return true;
                 //do some other staff
@@ -65,16 +65,16 @@ namespace TAGO.Template.Business
             }
         }
 
-        public async Task<Account> GetAccountAsync(int branchId, int accountId, CancellationToken cancellationToken = default)
+        public async Task<Account> GetAsync(string accountId, CancellationToken cancellationToken = default)
         {
-            return await accountDataAccess.GetAccountAsync(branchId, accountId, cancellationToken);
+            return await accountDataAccess.GetAsync(accountId, cancellationToken);
         }
 
-        public async Task<IEnumerable<Account>> GetAccountsAsync(CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<Account>> GetAsync(CancellationToken cancellationToken = default)
         {
             //do some validation 
 
-            var accounts = await accountDataAccess.GetAllAccountsAsync(cancellationToken);
+            var accounts = await accountDataAccess.GetAllAsync(cancellationToken);
 
             //do some other staff
 
@@ -82,7 +82,7 @@ namespace TAGO.Template.Business
             return accounts;
         }
 
-        public async Task<bool> UpdateAccountAsync(Account account, CancellationToken cancellationToken = default)
+        public async Task<bool> UpdateAsync(Account account, CancellationToken cancellationToken = default)
         {
 
             if (account == null)
@@ -90,10 +90,10 @@ namespace TAGO.Template.Business
                 throw new ValidationException("account could not be null");
             }
 
-            var existing = await accountDataAccess.GetAccountAsync(account.BranchId, account.AccountId);
+            var existing = await accountDataAccess.GetAsync(account.Id);
             if (existing != null)
             {
-                await accountDataAccess.UpdateAccountAsync(account, cancellationToken);
+                await accountDataAccess.UpdateAsync(account, cancellationToken);
 
                 return true;
                 //do some other staff

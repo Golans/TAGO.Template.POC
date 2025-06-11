@@ -12,7 +12,7 @@ namespace Microsoft.Extensions.DependencyInjection
     }
 
 
-    public static class ServiceControllerExtensions
+    public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddRestApi(this IServiceCollection services, IConfiguration configuration)
         {

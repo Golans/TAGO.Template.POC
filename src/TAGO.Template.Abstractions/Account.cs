@@ -8,7 +8,7 @@ namespace TAGO.Template.Abstractions
 
     public class Account
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         [Required(ErrorMessage = "BankId is required")]
         [Range(1, 999)]
@@ -22,13 +22,5 @@ namespace TAGO.Template.Abstractions
 
         [Required(ErrorMessage = "Date created is required")]
         public DateTime DateCreated { get; set; }
-        public decimal TotalAmount { get; set; }
-    }
-
-
-    public class AccountIdentifier
-    {
-        public int BranchId { get; set; }
-        public int AccountId { get; set; }
     }
 }
